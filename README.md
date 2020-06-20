@@ -5,7 +5,7 @@ Client-side app that uses Opentdb to pull 10 random questions to build a trivia 
 
 ## To run
 
-clone project
-navigate to client/trivia-client
-run npm install
+clone project  
+navigate to client/trivia-client  
+run npm install  
 run ng serve -o
