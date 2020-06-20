@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
-import { Question } from '../questions';
+import { ClientQuestion } from '../questions';
 import {
   NgForm,
   FormGroup,
@@ -8,6 +8,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -15,8 +16,9 @@ import {
   styleUrls: ['./game.component.css'],
 })
 export class GameComponent implements OnInit {
-  questions: Array<Question>;
+  questions: Array<ClientQuestion>;
   answers: Array<string> = [];
+  score: number;
   loading = true;
 
   submitted = false;
@@ -28,44 +30,20 @@ export class GameComponent implements OnInit {
     ]),
   });
 
-  constructor(private server: ServerService) {}
+  constructor(private server: ServerService, private router: Router) {}
 
   async ngOnInit() {
     this.questions = await this.server.getQuestions();
     this.loading = false;
   }
   submit(form: NgForm) {
-    for (const question in form.value) {
-      console.log(question + ': ' + form.value[question]);
-    }
-    console.log(form.value);
+    this.score = this.server.getScore(this.answers);
     this.submitted = true;
-    console.log('answers = ' + this.answers);
-    // console.log('answer');
   }
-  submitUsername() {}
-  // getGuessed() {
-  //   return this.game.guesses.split('').sort();
-  // }
-
-  // getNotGuessed() {
-  //   const guesses = this.game.guesses.split('');
-  //   return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  //     .split('')
-  //     .filter((c) => !guesses.includes(c));
-  // }
-
-  // async guess(c: string) {
-  //   this.loading = true;
-  //   this.game = await this.server.guessGame(c);
-  //   this.loading = false;
-  // }
-
-  // async newGame() {
-  //   this.loading = true;
-  //   this.game = await this.server.getGame();
-  //   this.loading = false;
-  // }
+  submitUsername() {
+    this.server.addScore(this.form.controls['name'].value, this.score);
+    this.router.navigateByUrl('/leaderboard');
+  }
 }
 
 function ageRangeValidator(

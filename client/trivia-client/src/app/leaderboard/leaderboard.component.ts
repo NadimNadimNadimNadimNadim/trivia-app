@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
-
-interface UserScore {
-  username: string;
-  score: number;
-}
+import { UserScore } from './UserScore';
 
 @Component({
   selector: 'app-leaderboard',
@@ -17,8 +13,8 @@ export class LeaderboardComponent implements OnInit {
 
   constructor(private server: ServerService) {}
 
-  async ngOnInit() {
-    // this.leaderboard = await this.server.getLeaderboard();
+  ngOnInit() {
+    this.leaderboard = this.server.getLeaderboard();
     this.loading = false;
   }
 }

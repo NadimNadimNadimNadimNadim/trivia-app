@@ -11,3 +11,11 @@ export interface Question {
   correct_answer: string;
   incorrect_answers: Array<string>;
 }
+
+export interface ClientQuestion {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  choices: Array<string>;
+}

@@ -8,17 +8,18 @@
       <form (ngSubmit)="ff.form.valid && submit(ff)" #ff="ngForm">
         <div *ngFor="let questionObj of questions; index as i">
           <p class="question" [innerHTML]="questionObj.question | keepHtml"></p>
-          <div *ngFor="let option of questionObj.incorrect_answers; index as j">
+          <div *ngFor="let choice of questionObj.choices; index as j">
             <div class="form-group col-md-9">
               <input
                 id="{{ i }}.{{ j }}"
                 name="{{ questionObj.question }}"
-                value="{{ option }}"
+                value="{{ choice }}"
                 type="radio"
                 [(ngModel)]="answers[i]"
                 required
+                [disabled]="submitted"
               />
-              <label for="{{ i }}.{{ j }}" [innerHTML]="option | keepHtml">
+              <label for="{{ i }}.{{ j }}" [innerHTML]="choice | keepHtml">
               </label>
             </div>
           </div>
@@ -34,9 +35,7 @@
       </form>
 
       <div class="game-result" *ngIf="submitted === true">
-        <p>
-          You Lost!
-        </p>
+        <h2 class="display-5">Score {{ score }}/{{ answers.length }}</h2>
         <form [formGroup]="form" (ngSubmit)="submitUsername()">
           <label>
             Save score? Username:
