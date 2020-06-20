@@ -24,6 +24,7 @@
           </div>
         </div>
         <input
+          class="btn btn-primary"
           style="float: right;"
           type="submit"
           value="Submit"
@@ -33,16 +34,22 @@
       </form>
 
       <div class="game-result" *ngIf="submitted === true">
-        You Lost!
-        <!-- </div>
-      <div class="game-result" *ngIf="game.status === 'won'">
-        You Won!
-      </div>
-      <div class="game-result" *ngIf="game.status !== 'ok'">
-        <button type="button" class="btn btn-primary" (click)="newGame()">
-          New Game
-        </button>
-      </div> -->
+        <p>
+          You Lost!
+        </p>
+        <form [formGroup]="form" (ngSubmit)="submitUsername()">
+          <label>
+            Save score? Username:
+            <input type="text" formControlName="name" />
+          </label>
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            [disabled]="!form.valid"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   </div>

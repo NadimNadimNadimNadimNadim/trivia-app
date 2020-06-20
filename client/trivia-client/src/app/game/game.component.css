@@ -7,3 +7,7 @@ input[type="radio"] {
 label {
   padding: 1%;
 }
+.game-result {
+  text-align: center;
+  margin-top: 20px;
+}

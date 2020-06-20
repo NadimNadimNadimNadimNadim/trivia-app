@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { Question } from '../questions';
-import { NgForm, FormGroup } from '@angular/forms';
+import {
+  NgForm,
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-game',
@@ -12,8 +18,15 @@ export class GameComponent implements OnInit {
   questions: Array<Question>;
   answers: Array<string> = [];
   loading = true;
-  form: FormGroup;
+
   submitted = false;
+  form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      ageRangeValidator,
+    ]),
+  });
 
   constructor(private server: ServerService) {}
 
@@ -30,7 +43,7 @@ export class GameComponent implements OnInit {
     console.log('answers = ' + this.answers);
     // console.log('answer');
   }
-
+  submitUsername() {}
   // getGuessed() {
   //   return this.game.guesses.split('').sort();
   // }
@@ -53,4 +66,13 @@ export class GameComponent implements OnInit {
   //   this.game = await this.server.getGame();
   //   this.loading = false;
   // }
+}
+
+function ageRangeValidator(
+  control: AbstractControl
+): { [key: string]: boolean } | null {
+  if (control.value.indexOf(' ') >= 0) {
+    return { whiteSpace: true };
+  }
+  return null;
 }
