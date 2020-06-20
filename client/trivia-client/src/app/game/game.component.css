@@ -1,0 +1,9 @@
+.question {
+  font-size: 25px;
+}
+input[type="radio"] {
+  margin-right: 0;
+}
+label {
+  padding: 1%;
+}

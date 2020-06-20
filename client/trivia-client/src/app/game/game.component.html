@@ -1,1 +1,49 @@
-<p>game works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm loading" *ngIf="loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+
+    <div class="col-sm" *ngIf="!loading">
+      <form (ngSubmit)="ff.form.valid && submit(ff)" #ff="ngForm">
+        <div *ngFor="let questionObj of questions; index as i">
+          <p class="question" [innerHTML]="questionObj.question | keepHtml"></p>
+          <div *ngFor="let option of questionObj.incorrect_answers; index as j">
+            <div class="form-group col-md-9">
+              <input
+                id="{{ i }}.{{ j }}"
+                name="{{ questionObj.question }}"
+                value="{{ option }}"
+                type="radio"
+                [(ngModel)]="answers[i]"
+                required
+              />
+              <label for="{{ i }}.{{ j }}" [innerHTML]="option | keepHtml">
+              </label>
+            </div>
+          </div>
+        </div>
+        <input
+          style="float: right;"
+          type="submit"
+          value="Submit"
+          disabled="true"
+          [disabled]="!ff.valid"
+        />
+      </form>
+
+      <div class="game-result" *ngIf="submitted === true">
+        You Lost!
+        <!-- </div>
+      <div class="game-result" *ngIf="game.status === 'won'">
+        You Won!
+      </div>
+      <div class="game-result" *ngIf="game.status !== 'ok'">
+        <button type="button" class="btn btn-primary" (click)="newGame()">
+          New Game
+        </button>
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>

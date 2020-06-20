@@ -8,9 +8,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GameComponent } from './game/game.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { EscapeHtmlPipe } from '../pipes/keep-html.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ProfileComponent, GameComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ProfileComponent,
+    GameComponent,
+    LeaderboardComponent,
+    EscapeHtmlPipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
