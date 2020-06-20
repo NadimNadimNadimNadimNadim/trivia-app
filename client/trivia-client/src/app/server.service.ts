@@ -13,7 +13,7 @@ export class ServerService {
   constructor(private http: HttpClient) {}
   async getQuestions() {
     let questions = await this.http
-      .get<Questions>('https://opentdb.com/api.php?amount=2')
+      .get<Questions>('https://opentdb.com/api.php?amount=5')
       .toPromise()
       .then((res) => {
         return res.results;
