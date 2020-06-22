@@ -35,7 +35,9 @@ export class ServerService {
     return clientQuestions;
   }
   getLeaderboard(): Array<UserScore> {
-    return this.leaderboard;
+    return this.leaderboard.sort((u1, u2) => {
+      return u1.score > u2.score ? -1 : u1.score === u2.score ? 0 : 1;
+    });
   }
   getScore(answers: Array<string>): number {
     let score = 0;
